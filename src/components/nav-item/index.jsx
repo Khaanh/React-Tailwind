@@ -14,10 +14,10 @@ export const NavItem = ({ text = "фывфыв", children }) => {
 				>
 					{text}
 				</span>
-				<ArrowDownIcon />
+				{children && selected !== text && <ArrowDownIcon />}
+				{children && selected === text && <ArrowUpIcon />}
 			</div>
-			{children && selected !== text && <ArrowDownIcon />}
-			{children && selected === text && <ArrowUpIcon />}
+			{selected && children}
 		</div>
 	);
 };
