@@ -12,7 +12,7 @@ export const Button = ({
 	return (
 		<button
 			className={`
-			text-medium-gray px-5 py-2 
+			text-medium-gray px-4 py-2 
 			${hasBorder && borderStyles} 
 			${isFilled && filledStyles}
 			`}

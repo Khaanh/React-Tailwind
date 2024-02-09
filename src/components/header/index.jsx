@@ -1,14 +1,21 @@
+import { useState } from "react";
 import { ReactComponent as LogoIcon } from "../../images/logo.svg";
+import { ReactComponent as IconMenu } from "../../images/icon-menu.svg";
+import { ReactComponent as IconCloseMenu } from "../../images/icon-close-menu.svg";
 import { Button } from "../button";
 import { NavItem } from "../nav-item";
 import { NavMenu } from "../nav-menu";
 import { COMPANY, FEATURES } from "./constants";
+import { MobileMenu } from "../mobile-menu";
 
 export const Header = () => {
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isBlockedScroll, setIsBlockedScroll] = useState(false);
+
 	return (
 		<header className="flex items-center">
 			<LogoIcon />
-			<nav className="flex space-x-6 ml-8 items-center">
+			<nav className="hidden xl:flex space-x-6 ml-8 items-center">
 				<NavItem text="Feature">
 					<NavMenu items={FEATURES} />
 				</NavItem>
@@ -18,10 +25,23 @@ export const Header = () => {
 				<NavItem text="Careers" />
 				<NavItem text="About" />
 			</nav>
-			<div className="flex ml-auto space-x-5">
+			<div className="hidden ml-auto xl:flex space-x-5">
 				<Button>Login</Button>
 				<Button hasBorder={true}>Register</Button>
 			</div>
+			<div
+				className="flex xl:hidden ml-auto cursor-pointer z-30"
+				onClick={() => [
+					setIsMobileMenuOpen(!isMobileMenuOpen),
+					setIsBlockedScroll(!isBlockedScroll),
+				]}
+			>
+				{isMobileMenuOpen ? <IconCloseMenu /> : <IconMenu />}
+				{isBlockedScroll
+					? (document.body.style.overflow = "hidden")
+					: (document.body.style.overflow = "auto")}
+			</div>
+			<MobileMenu isOpen={isMobileMenuOpen} />
 		</header>
 	);
 };
